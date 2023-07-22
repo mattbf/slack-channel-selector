@@ -46,7 +46,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
         >
           <div className='w-full py-2 px-2 border-b border-zinc-200 flex flex-row items-center justify-start'>
             <Search size={16} color='currentColor' />
-            <input autoFocus placeholder='Search Channels' className='ml-2' />
+            <input autoFocus placeholder='Search Channels' className='ml-2 w-full ring-0 outline-none' />
           </div>
           {options.map((option) => {
             const isSelected = values.find((value) => option.id === value.id) !== undefined ? true : false
