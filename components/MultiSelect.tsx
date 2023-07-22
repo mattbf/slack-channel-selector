@@ -1,7 +1,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import Chip from './Chip'
 import { Check, ChevronDown, Hash, Search } from 'lucide-react'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 
 type SelectOption = {
   name: string
@@ -25,6 +25,7 @@ export default function MultiSelect({
   searchOptions,
   resetSuggestions
 }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null)
   const handleChangeSelect = (event: any, option: any, isSelected: boolean) => {
     event.preventDefault()
     if (isSelected) {
@@ -38,8 +39,12 @@ export default function MultiSelect({
   }
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    event.stopPropagation()
     event.preventDefault()
+    event.stopPropagation()
+
+    console.log({ event, inputRef })
+
+    if (inputRef && inputRef.current) inputRef.current.focus()
 
     const query = event.target.value.trim()
     searchOptions(query)
@@ -81,6 +86,7 @@ export default function MultiSelect({
             <Search size={16} color='currentColor' />
             <input
               autoFocus
+              ref={inputRef}
               onChange={(e) => handleChangeInput(e)}
               placeholder='Search Channels'
               className='ml-2 w-full ring-0 outline-none bg-transparent'
@@ -88,6 +94,7 @@ export default function MultiSelect({
           </div>
           <div className='overflow-y-auto'>
             <DropdownMenu.Item
+              textValue=''
               onSelect={(e) => handleClearSelect(e)}
               className='hover:bg-zinc-700 focus:bg-zinc-700 py-1.5 px-2 outline-none text-white rounded-md'
             >
@@ -102,6 +109,7 @@ export default function MultiSelect({
                 selectedOptions.find((selected) => option.id === selected.id) !== undefined ? true : false
               return (
                 <DropdownMenu.Item
+                  textValue=''
                   key={option.id}
                   onSelect={(e) => handleChangeSelect(e, option, isSelected)}
                   className='hover:bg-zinc-700 focus:bg-zinc-800 py-1.5 px-2 outline-none text-white rounded-md'
