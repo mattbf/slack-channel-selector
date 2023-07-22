@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { CheckIcon, ChevronDownIcon } from './Icons'
+import { Check, ChevronDown } from 'lucide-react'
 
 type SelectOption = {
   label: string
@@ -22,7 +22,7 @@ export function Select({ options, value, onChange }: Props) {
       <DropdownMenu.Trigger asChild>
         <button className='w-64 flex items-center justify-between rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 px-2 hover:ring-slate-300 focus:ring-slate-300 outline-none select-none'>
           {selectedOption?.label}
-          <ChevronDownIcon />
+          <ChevronDown strokeWidth={1} />
         </button>
       </DropdownMenu.Trigger>
 
@@ -36,7 +36,7 @@ export function Select({ options, value, onChange }: Props) {
             >
               <button className='flex items-center justify-between w-full'>
                 {option.label}
-                {option === selectedOption && <CheckIcon />}
+                {option === selectedOption && <Check strokeWidth={1} />}
               </button>
             </DropdownMenu.Item>
           ))}

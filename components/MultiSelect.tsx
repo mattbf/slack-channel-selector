@@ -1,6 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { CheckIcon, ChevronDownIcon } from './Icons'
 import Chip from './Chip'
+import { Check, ChevronDown } from 'lucide-react'
 
 type SelectOption = {
   name: string
@@ -36,7 +36,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
           ) : (
             'Select a Slack Channel'
           )}
-          <ChevronDownIcon />
+          <ChevronDown strokeWidth={1.5} size={16} />
         </button>
       </DropdownMenu.Trigger>
 
@@ -55,7 +55,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
               >
                 <button className='flex items-center justify-between w-full'>
                   {option.name}
-                  {isSelected && <CheckIcon />}
+                  {isSelected && <Check strokeWidth={1.5} size={16} />}
                 </button>
               </DropdownMenu.Item>
             )
