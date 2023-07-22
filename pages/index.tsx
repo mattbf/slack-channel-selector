@@ -13,43 +13,41 @@ type SelectOption = {
 }
 
 export default function Home() {
-  const [value, setValue] = useState('general')
-  // const options = [
-  //   {
-  //     label: '#general',
-  //     value: 'general'
-  //   },
-  //   {
-  //     label: '#wip',
-  //     value: 'wip'
-  //   },
-  //   {
-  //     label: '#engineering',
-  //     value: 'engineering'
-  //   }
-  // ]
-
   const [options, setOptions] = useState<any[]>([])
+  const [filteredOptions, setFilteredOptions] = useState<SelectOption[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
 
   useEffect(() => {
     const getSlackChannels = async () => {
-      let query = 'proj'
+      let query = '' //'proj'
       const response = await fetch(`${URL}/?q=${query}`)
       const json = await response.json()
       console.log({ json })
       setOptions(json.data)
+      setFilteredOptions(json.data)
     }
 
     getSlackChannels()
   }, [])
 
-  const [selectedValues, setSelectedValues] = useState<SelectOption[]>([])
+  const searchOptions = async (query: string) => {
+    if (query) {
+      setFilteredOptions(options.filter((o) => o.name.includes(query)))
+    } else {
+      setFilteredOptions(options)
+    }
+  }
 
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
-      {/* <Select options={options} value={value} onChange={setValue} /> */}
       <div className='w-[300px]'>
-        <MultiSelect options={options} values={selectedValues} onChange={setSelectedValues} />
+        <MultiSelect
+          options={filteredOptions}
+          selectedOptions={selectedOptions}
+          filteredOptions={filteredOptions}
+          onChange={setSelectedOptions}
+          searchOptions={searchOptions}
+        />
       </div>
     </main>
   )

@@ -161,7 +161,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Respon
   const filteredChannels = searchParam ? channels.filter((channel) => channel.name.includes(searchParam)) : channels
   const pageParam = searchParams.get('page')
   const page = pageParam ? parseInt(pageParam) : 1
-  const perPage = 10
+  const perPage = 100
   const start = (page - 1) * perPage
   const end = start + perPage
   const hasNextPage = end < filteredChannels.length
