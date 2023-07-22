@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Docs() {
+export default function Design() {
   return (
     <main className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}>
       <Link href='/' className='flex items-center hover:border-zinc-200 border-transparent border-b text-sm'>

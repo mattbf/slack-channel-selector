@@ -46,6 +46,7 @@ export default function Home() {
 
   return (
     <main className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}>
+      <h1 className='mb-10 text-xl font-semibold text-zinc-300'>Slack Channel Selector</h1>
       <div className='w-[300px]'>
         <MultiSelect
           options={filteredOptions}
@@ -65,8 +66,8 @@ export default function Home() {
           <GithubIcon size={18} className='mr-1' />
           Source Code
         </a>
-        <Link href='/docs' className='flex items-center hover:border-zinc-200 border-transparent border-b text-sm'>
-          Docs
+        <Link href='/design' className='flex items-center hover:border-zinc-200 border-transparent border-b text-sm'>
+          Design
         </Link>
       </div>
     </main>
