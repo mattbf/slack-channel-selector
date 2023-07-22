@@ -1,5 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { CheckIcon, ChevronDownIcon } from './Icons'
+import Chip from './Chip'
 
 type SelectOption = {
   name: string
@@ -29,7 +30,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
           {values && values.length > 0 ? (
             <>
               {values.map((v: any) => (
-                <p key={v.id}>{v.name}</p>
+                <Chip key={v.id} option={v} />
               ))}
             </>
           ) : (
