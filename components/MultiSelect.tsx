@@ -1,7 +1,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import Chip from './Chip'
-import { Check, ChevronDown, Search } from 'lucide-react'
-import { useState } from 'react'
+import { Check, ChevronDown, Hash, Search } from 'lucide-react'
+import { ChangeEvent, useState } from 'react'
 
 type SelectOption = {
   name: string
@@ -29,7 +29,11 @@ export default function MultiSelect({ options, filteredOptions, selectedOptions,
     onChange([])
   }
 
-  const handleChangeInput = (query: string) => {
+  const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    event.stopPropagation()
+    event.preventDefault()
+
+    const query = event.target.value.trim()
     searchOptions(query)
   }
   console.log({ options, filteredOptions })
@@ -60,7 +64,12 @@ export default function MultiSelect({ options, filteredOptions, selectedOptions,
         >
           <div className='w-full py-2 px-2 border-b border-zinc-600 flex flex-row items-center justify-start mb-1 text-zinc-300 text-sm'>
             <Search size={16} color='currentColor' />
-            <input autoFocus placeholder='Search Channels' className='ml-2 w-full ring-0 outline-none bg-transparent' />
+            <input
+              autoFocus
+              onChange={(e) => handleChangeInput(e)}
+              placeholder='Search Channels'
+              className='ml-2 w-full ring-0 outline-none bg-transparent'
+            />
           </div>
           <div className='overflow-y-auto'>
             <DropdownMenu.Item
@@ -80,10 +89,13 @@ export default function MultiSelect({ options, filteredOptions, selectedOptions,
                 <DropdownMenu.Item
                   key={option.id}
                   onSelect={(e) => handleChangeSelect(e, option, isSelected)}
-                  className='hover:bg-zinc-700 focus:bg-zinc-700 py-1.5 px-2 outline-none text-white rounded-md'
+                  className='hover:bg-zinc-700 focus:bg-zinc-800 py-1.5 px-2 outline-none text-white rounded-md'
                 >
                   <button className='flex items-center justify-between w-full text-white text-sm'>
-                    {option.name}
+                    <div className='flex items-center'>
+                      <Hash strokeWidth={1.5} size={16} />
+                      {option.name}
+                    </div>
                     {isSelected && <Check strokeWidth={1.5} size={16} />}
                   </button>
                 </DropdownMenu.Item>

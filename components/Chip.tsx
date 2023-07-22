@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { X } from 'lucide-react'
+import { Hash, X } from 'lucide-react'
 
 type SelectOption = {
   name: string
@@ -13,8 +13,11 @@ type Props = {
 
 export default function Chip({ option }: Props) {
   return (
-    <button className='cursor-text text-xs flex flex-row items-center align-middle items-center justify-between bg-zinc-100 rounded-md py-1.5 px-2 focus:ring-zinc-300 outline-none select-none'>
-      {option.name}
+    <button className='cursor-text text-xs flex flex-row align-middle items-center justify-between bg-zinc-100 rounded-md py-1.5 px-2 focus:ring-zinc-300 outline-none select-none'>
+      <div className='flex items-center'>
+        <Hash strokeWidth={1.5} size={12} />
+        {option.name}
+      </div>
       <button className='hover:text-zinc-400'>
         <X size={12} className='ml-2' color='currentColor' />
       </button>
