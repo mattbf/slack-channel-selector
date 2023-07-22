@@ -26,7 +26,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button className='w-full flex items-center justify-between rounded-md ring-1 ring-slate-900/10 shadow-sm py-2 px-2 hover:ring-slate-300 focus:ring-slate-300 outline-none select-none'>
+        <button className='w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-700/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
           {values && values.length > 0 ? (
             <div className='flex flex-row flex-wrap gap-2'>
               {values.map((v: any) => (
@@ -36,7 +36,6 @@ export default function MultiSelect({ options, values, onChange }: Props) {
           ) : (
             'Select a Slack Channel'
           )}
-          <ChevronDown strokeWidth={1.5} size={16} />
         </button>
       </DropdownMenu.Trigger>
 
@@ -51,7 +50,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
               <DropdownMenu.Item
                 key={option.id}
                 onSelect={(e) => handleChangeSelect(e, option, isSelected)}
-                className='hover:bg-slate-100 focus:bg-slate-100 py-1.5 px-2 outline-none'
+                className='hover:bg-zinc-100 focus:bg-zinc-100 py-1.5 px-2 outline-none'
               >
                 <button className='flex items-center justify-between w-full'>
                   {option.name}

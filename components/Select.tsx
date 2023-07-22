@@ -20,7 +20,7 @@ export function Select({ options, value, onChange }: Props) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button className='w-64 flex items-center justify-between rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 px-2 hover:ring-slate-300 focus:ring-slate-300 outline-none select-none'>
+        <button className='w-64 flex items-center justify-between rounded-md ring-1 ring-zinc-900/10 shadow-sm py-1.5 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
           {selectedOption?.label}
           <ChevronDown strokeWidth={1} />
         </button>
@@ -32,7 +32,7 @@ export function Select({ options, value, onChange }: Props) {
             <DropdownMenu.Item
               key={option.value}
               onSelect={() => onChange(option.value)}
-              className='hover:bg-slate-100 focus:bg-slate-100 py-1.5 px-2 outline-none'
+              className='hover:bg-zinc-100 focus:bg-zinc-100 py-1.5 px-2 outline-none'
             >
               <button className='flex items-center justify-between w-full'>
                 {option.label}
