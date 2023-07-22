@@ -38,6 +38,10 @@ export default function Home() {
     }
   }
 
+  const resetSuggestions = () => {
+    setFilteredOptions(options)
+  }
+
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
       <div className='w-[300px]'>
@@ -47,6 +51,7 @@ export default function Home() {
           filteredOptions={filteredOptions}
           onChange={setSelectedOptions}
           searchOptions={searchOptions}
+          resetSuggestions={resetSuggestions}
         />
       </div>
     </main>

@@ -14,9 +14,17 @@ type Props = {
   selectedOptions: SelectOption[]
   onChange: (selectedOptions: SelectOption[]) => void
   searchOptions: (query: string) => void
+  resetSuggestions: () => void
 }
 
-export default function MultiSelect({ options, filteredOptions, selectedOptions, onChange, searchOptions }: Props) {
+export default function MultiSelect({
+  options,
+  filteredOptions,
+  selectedOptions,
+  onChange,
+  searchOptions,
+  resetSuggestions
+}: Props) {
   const handleChangeSelect = (event: any, option: any, isSelected: boolean) => {
     event.preventDefault()
     if (isSelected) {
@@ -38,8 +46,15 @@ export default function MultiSelect({ options, filteredOptions, selectedOptions,
   }
   console.log({ options, filteredOptions })
 
+  const handleMenuOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      //handle closing the menu
+      resetSuggestions()
+    }
+  }
+
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root onOpenChange={handleMenuOpenChange}>
       <DropdownMenu.Trigger asChild>
         <button className='text-sm w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-900/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
           {selectedOptions && selectedOptions.length > 0 ? (
@@ -62,7 +77,7 @@ export default function MultiSelect({ options, filteredOptions, selectedOptions,
           align='start'
           className='w-[--radix-popper-anchor-width] mt-1 flex flex-col rounded-md bg-zinc-900 border border-zinc-600 shadow-lg max-h-[300px]'
         >
-          <div className='w-full py-2 px-2 border-b border-zinc-600 flex flex-row items-center justify-start mb-1 text-zinc-300 text-sm'>
+          <div className='w-full py-2 px-2 border-b border-zinc-600 flex flex-row items-center justify-start text-zinc-300 text-sm'>
             <Search size={16} color='currentColor' />
             <input
               autoFocus
@@ -81,7 +96,7 @@ export default function MultiSelect({ options, filteredOptions, selectedOptions,
                 {selectedOptions && selectedOptions.length < 1 && <Check strokeWidth={1.5} size={16} />}
               </button>
             </DropdownMenu.Item>
-            <div className='w-full my-1 h-px bg-zinc-700' />
+            <div className='w-full h-px bg-zinc-700' />
             {filteredOptions.map((option) => {
               const isSelected =
                 selectedOptions.find((selected) => option.id === selected.id) !== undefined ? true : false
