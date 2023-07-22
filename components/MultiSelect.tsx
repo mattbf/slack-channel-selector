@@ -128,14 +128,15 @@ export default function MultiSelect({
               className='ml-2 w-full ring-0 outline-none bg-transparent'
             />
           </div>
-          <div className='overflow-y-auto'>
+          <div className='overflow-y-auto scrollbar-light'>
             <div className='p-1'>
               <DropdownMenu.Item
+                onMouseEnter={(e) => e.stopPropagation()}
                 textValue=''
                 onSelect={() => onChange([])}
-                className='hover:bg-zinc-700 focus:bg-zinc-700 py-1.5 px-2 outline-none text-white rounded-md'
+                className='hover:bg-zinc-700 focus:bg-zinc-700 py-1.5 px-2 outline-none text-zinc-400 rounded-md '
               >
-                <button className='flex items-center justify-between w-full text-white text-sm'>
+                <button className='flex items-center justify-between w-full text-zinc-400 text-sm'>
                   No Channel
                   {selectedOptions && selectedOptions.length < 1 && <Check strokeWidth={1.5} size={16} />}
                 </button>
@@ -143,16 +144,18 @@ export default function MultiSelect({
             </div>
             <div className='w-full h-px bg-zinc-700' />
             <div className='p-1'>
+              {/* Would virtualize here if we expected to have more than 100s of options/channels */}
               {filteredOptions.map((option) => {
                 const isSelected =
                   selectedOptions.find((selected) => option.id === selected.id) !== undefined ? true : false
                 const matchedChars = highlightCharacters(option.name, inputRef?.current?.value)
                 return (
                   <DropdownMenu.Item
+                    onMouseEnter={(e) => e.stopPropagation()}
                     textValue=''
                     key={option.id}
                     onSelect={(e) => handleChangeSelect(e, option, isSelected)}
-                    className='hover:bg-zinc-700 focus:bg-zinc-800 py-1.5 px-2 outline-none text-zinc-400 rounded-md'
+                    className='hover:bg-zinc-700 focus:bg-zinc-800 py-1.5 px-2 outline-none text-zinc-400 rounded-md '
                   >
                     <button className='flex items-center justify-between w-full text-zinc-400 text-sm'>
                       <div className='flex items-center'>
@@ -175,6 +178,12 @@ export default function MultiSelect({
                   </DropdownMenu.Item>
                 )
               })}
+
+              {filteredOptions && filteredOptions.length === 0 && (
+                <div className='flex items-center justify-between w-full text-white text-sm p-2'>
+                  No Matching Channels
+                </div>
+              )}
             </div>
           </div>
         </DropdownMenu.Content>
