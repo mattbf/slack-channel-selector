@@ -58,14 +58,15 @@ export default function MultiSelect({
     <DropdownMenu.Root onOpenChange={handleMenuOpenChange}>
       <DropdownMenu.Trigger asChild>
         <button className='text-sm w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-900/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
-          {selectedOptions && selectedOptions.length > 0 ? (
-            <div className='flex flex-row flex-wrap gap-2'>
-              {selectedOptions.map((v: any) => (
-                <Chip key={v.id} option={v} />
-              ))}
+          {selectedOptions && selectedOptions.length > 1 ? (
+            <div className='flex items-center'>{selectedOptions.length} Channels</div>
+          ) : selectedOptions && selectedOptions.length === 1 ? (
+            <div className='flex items-center'>
+              <Hash strokeWidth={1.5} size={16} />
+              {selectedOptions[0].name}
             </div>
           ) : (
-            <div className='h-[28px] flex flex-row justify-between items-center w-full'>
+            <div className='flex flex-row justify-between items-center w-full'>
               Select a Slack Channel
               <ChevronDown size={16} color='currentColor' />
             </div>
