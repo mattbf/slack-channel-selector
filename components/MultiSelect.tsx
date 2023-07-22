@@ -25,7 +25,7 @@ export default function MultiSelect({
   searchOptions,
   resetSuggestions
 }: Props) {
-  // const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const handleChangeSelect = (event: any, option: any, isSelected: boolean) => {
     event.preventDefault()
     if (isSelected) {
@@ -59,11 +59,17 @@ export default function MultiSelect({
       <DropdownMenu.Trigger asChild>
         <button className='text-sm w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-900/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
           {selectedOptions && selectedOptions.length > 1 ? (
-            <div className='flex items-center'>{selectedOptions.length} Channels</div>
+            <div className='flex flex-row justify-between items-center w-full'>
+              <div className='flex items-center'>{selectedOptions.length} Channels</div>
+              <ChevronDown size={16} color='currentColor' />
+            </div>
           ) : selectedOptions && selectedOptions.length === 1 ? (
-            <div className='flex items-center'>
-              <Hash strokeWidth={1.5} size={16} />
-              {selectedOptions[0].name}
+            <div className='flex flex-row justify-between items-center w-full'>
+              <div className='flex items-center'>
+                <Hash strokeWidth={1.5} size={16} />
+                {selectedOptions[0].name}
+              </div>
+              <ChevronDown size={16} color='currentColor' />
             </div>
           ) : (
             <div className='flex flex-row justify-between items-center w-full'>
@@ -83,7 +89,7 @@ export default function MultiSelect({
             <Search size={16} color='currentColor' />
             <input
               autoFocus
-              // ref={inputRef}
+              ref={inputRef}
               onChange={(e) => handleChangeInput(e)}
               placeholder='Search Channels'
               className='ml-2 w-full ring-0 outline-none bg-transparent'
