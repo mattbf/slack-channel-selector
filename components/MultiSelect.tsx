@@ -1,6 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import Chip from './Chip'
-import { Check, ChevronDown } from 'lucide-react'
+import { Check, ChevronDown, Search } from 'lucide-react'
 
 type SelectOption = {
   name: string
@@ -26,7 +26,7 @@ export default function MultiSelect({ options, values, onChange }: Props) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button className='w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-700/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
+        <button className='w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-900/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
           {values && values.length > 0 ? (
             <div className='flex flex-row flex-wrap gap-2'>
               {values.map((v: any) => (
@@ -44,6 +44,10 @@ export default function MultiSelect({ options, values, onChange }: Props) {
           align='start'
           className='w-[--radix-popper-anchor-width] mt-1 flex flex-col border rounded-md'
         >
+          <div className='w-full py-2 px-2 border-b border-zinc-200 flex flex-row items-center justify-start'>
+            <Search size={16} color='currentColor' />
+            <input autoFocus placeholder='Search Channels' className='ml-2' />
+          </div>
           {options.map((option) => {
             const isSelected = values.find((value) => option.id === value.id) !== undefined ? true : false
             return (
