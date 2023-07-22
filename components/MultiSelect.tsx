@@ -26,13 +26,13 @@ export default function MultiSelect({ options, values, onChange }: Props) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <button className='w-64 flex items-center justify-between rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 px-2 hover:ring-slate-300 focus:ring-slate-300 outline-none select-none'>
+        <button className='w-full flex items-center justify-between rounded-md ring-1 ring-slate-900/10 shadow-sm py-2 px-2 hover:ring-slate-300 focus:ring-slate-300 outline-none select-none'>
           {values && values.length > 0 ? (
-            <>
+            <div className='flex flex-row flex-wrap gap-2'>
               {values.map((v: any) => (
                 <Chip key={v.id} option={v} />
               ))}
-            </>
+            </div>
           ) : (
             'Select a Slack Channel'
           )}
@@ -41,7 +41,10 @@ export default function MultiSelect({ options, values, onChange }: Props) {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content align='start' className='w-64 mt-1 flex flex-col border rounded-md'>
+        <DropdownMenu.Content
+          align='start'
+          className='w-[--radix-popper-anchor-width] mt-1 flex flex-col border rounded-md'
+        >
           {options.map((option) => {
             const isSelected = values.find((value) => option.id === value.id) !== undefined ? true : false
             return (

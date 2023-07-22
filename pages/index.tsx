@@ -48,7 +48,9 @@ export default function Home() {
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
       {/* <Select options={options} value={value} onChange={setValue} /> */}
-      <MultiSelect options={options} values={selectedValues} onChange={setSelectedValues} />
+      <div className='w-[300px]'>
+        <MultiSelect options={options} values={selectedValues} onChange={setSelectedValues} />
+      </div>
     </main>
   )
 }
