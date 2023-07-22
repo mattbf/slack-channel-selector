@@ -25,7 +25,7 @@ export default function MultiSelect({
   searchOptions,
   resetSuggestions
 }: Props) {
-  const inputRef = useRef<HTMLInputElement>(null)
+  // const inputRef = useRef<HTMLInputElement>(null)
   const handleChangeSelect = (event: any, option: any, isSelected: boolean) => {
     event.preventDefault()
     if (isSelected) {
@@ -41,10 +41,6 @@ export default function MultiSelect({
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
     event.stopPropagation()
-
-    console.log({ event, inputRef })
-
-    if (inputRef && inputRef.current) inputRef.current.focus()
 
     const query = event.target.value.trim()
     searchOptions(query)
@@ -86,7 +82,7 @@ export default function MultiSelect({
             <Search size={16} color='currentColor' />
             <input
               autoFocus
-              ref={inputRef}
+              // ref={inputRef}
               onChange={(e) => handleChangeInput(e)}
               placeholder='Search Channels'
               className='ml-2 w-full ring-0 outline-none bg-transparent'
