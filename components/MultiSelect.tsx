@@ -42,12 +42,13 @@ export default function MultiSelect({ options, values, onChange }: Props) {
       <DropdownMenu.Portal className='border border-orange-500'>
         <DropdownMenu.Content
           align='start'
-          className='w-[--radix-popper-anchor-width] mt-1 flex flex-col rounded-md bg-zinc-900 border border-zinc-600 shadow-lg px-1 py-1'
+          className='w-[--radix-popper-anchor-width] mt-1 flex flex-col rounded-md bg-zinc-900 border border-zinc-600 shadow-lg'
         >
           <div className='w-full py-2 px-2 border-b border-zinc-600 flex flex-row items-center justify-start mb-1 text-zinc-300 text-sm'>
             <Search size={16} color='currentColor' />
             <input autoFocus placeholder='Search Channels' className='ml-2 w-full ring-0 outline-none bg-transparent' />
           </div>
+
           {options.map((option) => {
             const isSelected = values.find((value) => option.id === value.id) !== undefined ? true : false
             return (
