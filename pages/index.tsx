@@ -1,7 +1,8 @@
 import { Inter } from 'next/font/google'
-import { Select } from '@/components/Select'
 import { useState, useEffect } from 'react'
 import MultiSelect from '@/components/MultiSelect'
+import { GithubIcon } from 'lucide-react'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,9 +18,10 @@ export default function Home() {
   const [filteredOptions, setFilteredOptions] = useState<SelectOption[]>([])
   const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>([])
 
+  //We load all of the channels on page mount so that the select has the options beforehand
   useEffect(() => {
     const getSlackChannels = async () => {
-      let query = '' //'proj'
+      let query = ''
       const response = await fetch(`${URL}/?q=${query}`)
       const json = await response.json()
       console.log({ json })
@@ -43,7 +45,7 @@ export default function Home() {
   }
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
+    <main className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}>
       <div className='w-[300px]'>
         <MultiSelect
           options={filteredOptions}
@@ -53,6 +55,19 @@ export default function Home() {
           searchOptions={searchOptions}
           resetSuggestions={resetSuggestions}
         />
+      </div>
+      <div className='flex flex-row items-center gap-x-4 w-lg p-12 fixed bottom-2'>
+        <a
+          href='https://github.com/mattbf/slack-channel-selector'
+          target='_blank'
+          className='flex items-center hover:border-zinc-200 border-transparent border-b text-sm'
+        >
+          <GithubIcon size={18} className='mr-1' />
+          Source Code
+        </a>
+        <Link href='/docs' className='flex items-center hover:border-zinc-200 border-transparent border-b text-sm'>
+          Docs
+        </Link>
       </div>
     </main>
   )

@@ -33,9 +33,7 @@ export default function MultiSelect({
     } else {
       onChange([...selectedOptions, option])
     }
-  }
-  const handleClearSelect = (event: any) => {
-    onChange([])
+    inputRef?.current?.focus()
   }
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,10 +52,20 @@ export default function MultiSelect({
     }
   }
 
+  //bolds any matching text in a slack channel name
+  const boldMatchCharacters = (sentence: string, characters = '') => {
+    if (!!characters) {
+      const regEx = new RegExp(characters, 'gi')
+      return sentence.replace(regEx, '<b>$&</b>')
+    } else {
+      return sentence
+    }
+  }
+
   return (
     <DropdownMenu.Root onOpenChange={handleMenuOpenChange}>
       <DropdownMenu.Trigger asChild>
-        <button className='text-sm w-full flex items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-900/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
+        <button className='text-sm w-full flex font-medium items-center justify-between rounded-md shadow-sm ring-1 ring-zinc-900/10 py-2 px-2 hover:ring-zinc-300 focus:ring-zinc-300 outline-none select-none'>
           {selectedOptions && selectedOptions.length > 1 ? (
             <div className='flex flex-row justify-between items-center w-full'>
               <div className='flex items-center'>{selectedOptions.length} Channels</div>
@@ -96,37 +104,41 @@ export default function MultiSelect({
             />
           </div>
           <div className='overflow-y-auto'>
-            <DropdownMenu.Item
-              textValue=''
-              onSelect={(e) => handleClearSelect(e)}
-              className='hover:bg-zinc-700 focus:bg-zinc-700 py-1.5 px-2 outline-none text-white rounded-md'
-            >
-              <button className='flex items-center justify-between w-full text-white text-sm'>
-                No Channel
-                {selectedOptions && selectedOptions.length < 1 && <Check strokeWidth={1.5} size={16} />}
-              </button>
-            </DropdownMenu.Item>
+            <div className='p-1'>
+              <DropdownMenu.Item
+                textValue=''
+                onSelect={() => onChange([])}
+                className='hover:bg-zinc-700 focus:bg-zinc-700 py-1.5 px-2 outline-none text-white rounded-md'
+              >
+                <button className='flex items-center justify-between w-full text-white text-sm'>
+                  No Channel
+                  {selectedOptions && selectedOptions.length < 1 && <Check strokeWidth={1.5} size={16} />}
+                </button>
+              </DropdownMenu.Item>
+            </div>
             <div className='w-full h-px bg-zinc-700' />
-            {filteredOptions.map((option) => {
-              const isSelected =
-                selectedOptions.find((selected) => option.id === selected.id) !== undefined ? true : false
-              return (
-                <DropdownMenu.Item
-                  textValue=''
-                  key={option.id}
-                  onSelect={(e) => handleChangeSelect(e, option, isSelected)}
-                  className='hover:bg-zinc-700 focus:bg-zinc-800 py-1.5 px-2 outline-none text-white rounded-md'
-                >
-                  <button className='flex items-center justify-between w-full text-white text-sm'>
-                    <div className='flex items-center'>
-                      <Hash strokeWidth={1.5} size={16} />
-                      {option.name}
-                    </div>
-                    {isSelected && <Check strokeWidth={1.5} size={16} />}
-                  </button>
-                </DropdownMenu.Item>
-              )
-            })}
+            <div className='p-1'>
+              {filteredOptions.map((option) => {
+                const isSelected =
+                  selectedOptions.find((selected) => option.id === selected.id) !== undefined ? true : false
+                return (
+                  <DropdownMenu.Item
+                    textValue=''
+                    key={option.id}
+                    onSelect={(e) => handleChangeSelect(e, option, isSelected)}
+                    className='hover:bg-zinc-700 focus:bg-zinc-800 py-1.5 px-2 outline-none text-zinc-400 rounded-md'
+                  >
+                    <button className='flex items-center justify-between w-full text-zinc-400 text-sm'>
+                      <div className='flex items-center'>
+                        <Hash strokeWidth={1.5} size={16} />
+                        <p>{boldMatchCharacters(option.name, inputRef?.current?.value)}</p>
+                      </div>
+                      {isSelected && <Check strokeWidth={1.5} size={16} />}
+                    </button>
+                  </DropdownMenu.Item>
+                )
+              })}
+            </div>
           </div>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
