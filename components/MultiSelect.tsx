@@ -56,10 +56,35 @@ export default function MultiSelect({
   const boldMatchCharacters = (sentence: string, characters = '') => {
     if (!!characters) {
       const regEx = new RegExp(characters, 'gi')
-      return sentence.replace(regEx, '<b>$&</b>')
+      const matchedSentence = sentence.replace(regEx, `<p className='text-white'>$&</p>`)
+      return
     } else {
       return sentence
     }
+  }
+
+  function highlightCharacters(sentence: string, characters = '') {
+    // Create a regular expression to match the whole characters string
+    const regex = new RegExp(`(${characters})`, 'g')
+
+    // Split the sentence into segments: matching and non-matching parts
+    const segments = sentence.split(regex)
+
+    // Create an array to store the resulting objects
+    const resultArray = []
+
+    // Loop through each segment of the sentence
+    for (let i = 0; i < segments.length; i++) {
+      // If the segment matches the characters string, add an object with "highlight" set to true
+      if (i % 2 === 1) {
+        resultArray.push({ text: segments[i], highlight: true })
+      } else {
+        // If the segment does not match the characters string, add an object with "highlight" set to false
+        resultArray.push({ text: segments[i], highlight: false })
+      }
+    }
+
+    return resultArray
   }
 
   return (
@@ -121,6 +146,7 @@ export default function MultiSelect({
               {filteredOptions.map((option) => {
                 const isSelected =
                   selectedOptions.find((selected) => option.id === selected.id) !== undefined ? true : false
+                const matchedChars = highlightCharacters(option.name, inputRef?.current?.value)
                 return (
                   <DropdownMenu.Item
                     textValue=''
@@ -131,7 +157,18 @@ export default function MultiSelect({
                     <button className='flex items-center justify-between w-full text-zinc-400 text-sm'>
                       <div className='flex items-center'>
                         <Hash strokeWidth={1.5} size={16} />
-                        <p>{boldMatchCharacters(option.name, inputRef?.current?.value)}</p>
+
+                        {matchedChars.map((c, index) => {
+                          if (c.highlight) {
+                            return (
+                              <p key={index} className='text-white'>
+                                {c.text}
+                              </p>
+                            )
+                          } else {
+                            return <p key={index}>{c.text}</p>
+                          }
+                        })}
                       </div>
                       {isSelected && <Check strokeWidth={1.5} size={16} />}
                     </button>

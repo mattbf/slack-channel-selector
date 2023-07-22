@@ -11,8 +11,20 @@ export default function Design() {
         <MoveLeft size={18} className='mr-1' />
         Back to Component
       </Link>
-      <div className='w-lg p-12'></div>
-      This is my reasoning
+      <div className='max-w-xl p-12'>
+        <b>Building a Combobox / Autocomplete component is very hard </b> (because focus mamanement / accessibility).
+        <br />
+        My goal was to just emulate most of the UX of a desirable combobox component:
+        <br />
+        <br /> - Performant
+        <br /> - Search / filtering options
+        <br />
+        <br />
+        <br />
+        <b> Added a few finishing touches 🪄 </b>
+        <br />
+        <br /> - Highlights matching text in channels
+      </div>
     </main>
   )
 }
